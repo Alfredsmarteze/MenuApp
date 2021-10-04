@@ -1,0 +1,84 @@
+﻿@model MenuApp.Models.Menuclass
+
+
+@*<hr />*@
+@*<div class="row">*@
+@*<div class="col-md-4">*@
+                    <h4 class="text-center ">Student Details</h4>
+        <form asp-action="StudentDetails">
+            <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdMenu" class="control-label"></label>
+                <input asp-for="IdMenu" class="form-control" />
+                <span asp-validation-for="IdMenu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdApplication" class="control-label"></label>
+                <input asp-for="IdApplication" class="form-control" />
+                <span asp-validation-for="IdApplication" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Controller" class="control-label"></label>
+                <input asp-for="Controller" class="form-control" />
+                <span asp-validation-for="Controller" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Action" class="control-label"></label>
+                <input asp-for="Action" class="form-control" />
+                <span asp-validation-for="Action" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Area" class="control-label"></label>
+                <input asp-for="Area" class="form-control" />
+                <span asp-validation-for="Area" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParentId" class="control-label"></label>
+                <input asp-for="ParentId" class="form-control" />
+                <span asp-validation-for="ParentId" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasChildren" /> @Html.DisplayNameFor(model => model.HasChildren)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="DisplayOrder" class="control-label"></label>
+                <input asp-for="DisplayOrder" class="form-control" />
+                <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Icon" class="control-label"></label>
+                <input asp-for="Icon" class="form-control" />
+                <span asp-validation-for="Icon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MenuText" class="control-label"></label>
+                <input asp-for="MenuText" class="form-control" />
+                <span asp-validation-for="MenuText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataRoute" class="control-label"></label>
+                <input asp-for="DataRoute" class="form-control" />
+                <span asp-validation-for="DataRoute" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsMenu" class="control-label"></label>
+                <input asp-for="IsMenu" class="form-control" />
+                <span asp-validation-for="IsMenu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    @*</div>*@
+@*</div>*@
+
+@*<div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

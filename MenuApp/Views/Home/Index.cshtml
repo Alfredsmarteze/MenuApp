@@ -1,0 +1,267 @@
+﻿@model MenuApp.Models.Menuclass
+@{
+    ViewData["Title"] = "Home Page";
+}
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+
+
+<div class="text-center">
+        <div class=" row border-primary bg-info ">
+            <div class="col">
+                <form asp-action="StudentDetails">
+                    <div class="row border-primary">
+                        <input type="hidden" asp-for="Id">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group" hidden>
+                            <label asp-for="IdMenu" class="control-label"></label>
+                            <input asp-for="IdMenu" class="form-control" />
+                            <span asp-validation-for="IdMenu" class="text-danger"></span>
+                        </div>
+                        <div class="form-group offset-sm-1">
+                            <label asp-for="IdApplication" class="control-label"></label>
+                            <input asp-for="IdApplication" class="form-control" />
+                            <span asp-validation-for="IdApplication" class="text-danger"></span>
+                        </div>
+                        <div class="form-group offset-1">
+                            <label asp-for="Controller" class="control-label"></label>
+                            <input asp-for="Controller" class="form-control" />
+                            <span asp-validation-for="Controller" class="text-danger"></span>
+                        </div>
+                        <div class="form-group offset-1">
+                            <label asp-for="Action" class="control-label"></label>
+                            <input asp-for="Action" class="form-control" />
+                            <span asp-validation-for="Action" class="text-danger"></span>
+                        </div>
+                        <div class="form-group offset-sm-1">
+                            <label asp-for="Area" class="control-label"></label>
+                            <input asp-for="Area" class="form-control" />
+                            <span asp-validation-for="Area" class="text-danger"></span>
+                        </div>
+                    </div><br>
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="ParentId" class="control-label"></label>
+                                <select class="form-control justify-content-center" asp-for="IdParent">
+                                    <option value="">---Select---</option>
+                                    <option value="Menu 1">Menu 1</option>
+                                    <option value="Menu 2">Menu 2</option>
+                                    <option value="Menu 3">Menu 3</option>
+                                    <option value="Menu 4">Menu 4</option>
+                                    <option value="Menu 5">Menu 5</option>
+                                </select>
+
+                            </div>
+                            <div class="form-group" hidden>
+                                <label asp-for="ParentId" class="control-label"></label>
+                                <input asp-for="ParentId" class="form-control" />
+                                <span asp-validation-for="ParentId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group form-check" id="ischecked">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="HasChildren" /> @Html.DisplayNameFor(model => model.HasChildren)
+                                </label>
+                            </div>
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="IsMenu" /> @Html.DisplayNameFor(model => model.IsMenu)
+                                </label>
+                            </div>
+                        </div>
+                    
+                    <div class="row">
+                        <div class="form-group offset-sm-1">
+                            <label asp-for="DisplayOrder" class="control-label"></label>
+                            <input asp-for="DisplayOrder" class="form-control" />
+                            <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+                        </div>
+                        <div class="form-group offset-1">
+                            <label asp-for="Icon" class="control-label"></label>
+                            <input asp-for="Icon" class="form-control" />
+                            <span asp-validation-for="Icon" class="text-danger"></span>
+                        </div>
+                        <div class="form-group offset-sm-1">
+                            <label asp-for="MenuText" class="control-label"></label>
+                            <input asp-for="MenuText" class="form-control" />
+                            <span asp-validation-for="MenuText" class="text-danger"></span>
+                        </div>
+                        <div class="form-group offset-sm-1">
+                            <label asp-for="DataRoute" class="control-label"></label>
+                            <input asp-for="DataRoute" class="form-control" />
+                            <span asp-validation-for="DataRoute" class="text-danger"></span>
+                        </div>
+                        
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </form>
+            @*<div class="col">
+                        <partial name="TeacherDetails">
+            </div>*@
+        </div>
+   </div>
+</div>
+<br>
+<div class=" container-fluid">
+    <table id="menuTable" class="table table-striped table-bordered table-responsive">
+        <thead>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+@*scripts section*@
+
+@*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="~/notify.min.js"></script>
+<script type="text/javascript">
+
+    function checkedBoxx()
+    {
+        if ($("#ischecked" == true)) {
+            $("#ischecked" == false)
+        }
+    }
+
+    function EditStudentDetails(element) {
+        $("input[name='Id']").val(element.dataset.id);
+        $("input[name='IdMenu']").val(element.dataset.idmenu);
+        $("input[name='IdApplication']").val(element.dataset.idapplication);
+        $("input[name='Controller']").val(element.dataset.controller);
+        $("input[name='Action']").val(element.dataset.action);
+        $("input[name='Area']").val(element.dataset.area);
+        $("input[name='IdParent']").val(element.dataset.idParent);
+        $("input[name='ParentId']").val(element.dataset.parentid);
+        $("input[name='HasChildren']").val(element.dataset.haschildren);
+        $("input[name='DisplayOrder']").val(element.dataset.displayorder);
+        $("input[name='Icon']").val(element.dataset.icon);
+        $("input[name='MenuText']").val(element.dataset.menutext);
+        $("input[name='DataRoute']").val(element.dataset.dataroute);
+        $("input[name='IsMenu']").val(element.dataset.ismenu);
+
+
+        checkedBoxx();
+
+     }
+
+    function DeleteStd(id)
+    {
+        if(confirm("Are You sure to delete this record..?"))
+        {
+                $.ajax({
+
+                    type: 'POST',
+                    url: '@Url.Action("DeleteStudentDetails", "Home")/'+id,
+                    datatype: 'JSON',
+                    //data: JSON.stringify({ id: id }),
+                    success: function (response) {
+                        if (response.success)
+                        {
+                            $.notify(response.message, {
+                                globalPosition: "top centre",
+                                className: "sucess"
+                            });
+                            
+                        }
+                        window.location.reload();
+                            //table.row().remove().draw();
+                            //table.ajax.reload();
+
+                            //$("#myModal").modal('hide');
+
+                    },
+                });
+        }
+    }
+
+    $(document).ready(function () {
+        var table = $('#menuTable').DataTable({
+            "processing": true,
+            /* "serverSide": true,*/
+            "filter": true,
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                'url': '@Url.Action("GetStudentsData", "Home")',
+                "type": "GET",
+                "datatype": "json"
+
+            },
+
+            "columns": [
+
+                { "sTitle": "Id", "data": "id" },
+                //{ "sTitle": "IdMenu", "data": "idMenu" },
+                { "sTitle": "IdApplication", "data": "idApplication" },
+                { "sTitle": "Controller", "data": "controller" },
+                { "sTitle": "Action", "data": "action" },
+                { "sTitle": "Area", "data": "area" },
+                { "sTitle": "Main Parent", "data": "idParent" },
+                //{ "sTitle": "ParentId", "data": "parentId" },
+                { "sTitle": "HasChildren", "data": "hasChildren" },
+                { "sTitle": "DisplayOrder", "data": "displayOrder" },
+                { "sTitle": "Icon", "data": "icon" },
+                { "sTitle": "MenuText", "data": "menuText" },
+                { "sTitle": "DataRoute", "data": "dataRoute" },
+                { "sTitle": "IsMenu", "data": "isMenu" },
+                {
+                    "sTitle": "Actions",
+
+                    "render": function (data, type, row, meta)
+                    {
+                        console.log(row)
+                        if (row)
+                        {
+                            return `<button class="btn btn-primary"
+                                data-id="${row.id}"
+                                data-IdMenu="${row.idMenu}"
+                                data-IdApplication="${row.idApplication}"
+                                data-controller="${row.controller}"
+                                data-action="${row.action}"
+                                data-area="${row.area}"
+                                data-area="${row.idParent}"
+                                data-parentId="${row.parentId}"
+                                data-hasChildren="${row.hasChildren}"
+                                data-displayOrder="${row.displayOrder}"
+                                data-icon="${row.icon}"
+                                data-menuText="${row.menuText}"
+                                data-dataRoute="${row.dataRoute}"
+                                data-id_Application="${row.isMenu}"
+                                onclick="EditStudentDetails(this)">Edit</button>
+
+                                <button class=" btn btn-danger"
+                                data-id="${row.id}"
+                                data-IdMenu="${row.idMenu}"
+                                data-IdApplication="${row.idApplication}"
+                                data-controller="${row.controller}"
+                                data-action="${row.action}"
+                                data-area="${row.area}"
+                                data-area="${row.idParent}"
+                                data-parentId="${row.parentId}"
+                                data-hasChildren="${row.hasChildren}"
+                                data-displayOrder="${row.displayOrder}"
+                                data-icon="${row.icon}"
+                                data-menuText="${row.menuText}"
+                                data-dataRoute="${row.dataRoute}"
+                                data-id_Application="${row.isMenu}"
+                                onclick='DeleteStd(${row.id})'>Delete</button>`
+                                
+                        }
+
+                    return ''
+
+
+
+
+
+
+                    }
+                },
+            ]
+        })
+
+    })
+
+</script>
