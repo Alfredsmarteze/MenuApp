@@ -70,7 +70,6 @@ namespace MenuApp.Controllers
             Menuclass menuclass = new Menuclass()
             {
                 IdMenu = Guid.NewGuid(),
-                IsMenu=false
             };
             return View(menuclass);
         }

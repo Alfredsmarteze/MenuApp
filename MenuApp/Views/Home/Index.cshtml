@@ -6,10 +6,10 @@
 
 
 <div class="text-center">
-        <div class=" row border-primary bg-info ">
+        <div class=" row border-primary" style="background:linear-gradient(360deg,green,red, green)">
             <div class="col">
                 <form asp-action="StudentDetails">
-                    <div class="row border-primary">
+                    <div class="row border-primary text-white">
                         <input type="hidden" asp-for="Id">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group" hidden>
@@ -38,18 +38,15 @@
                             <span asp-validation-for="Area" class="text-danger"></span>
                         </div>
                     </div><br>
-                        <div class="col">
-                            <div class="form-group">
+                        <div class="row text-white">
+                            <div class="form-group offset-1">
                                 <label asp-for="ParentId" class="control-label"></label>
-                                <select class="form-control justify-content-center" asp-for="IdParent">
+                                <select id="showselecteditem" class="form-control justify-content-center" asp-for="IdParent">
                                     <option value="">---Select---</option>
-                                    <option value="Menu 1">Menu 1</option>
-                                    <option value="Menu 2">Menu 2</option>
-                                    <option value="Menu 3">Menu 3</option>
-                                    <option value="Menu 4">Menu 4</option>
-                                    <option value="Menu 5">Menu 5</option>
+                                    <option value="Menu 1">Product List</option>
+                                    <option value="Menu 2">Tv Section</option>
                                 </select>
-
+                                <input type="text" id="text" />
                             </div>
                             <div class="form-group" hidden>
                                 <label asp-for="ParentId" class="control-label"></label>
@@ -58,17 +55,17 @@
                             </div>
                             <div class="form-group form-check" id="ischecked">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" asp-for="HasChildren" /> @Html.DisplayNameFor(model => model.HasChildren)
+                                    <input id="checkitout" class="form-check-input" asp-for="HasChildren" /> @Html.DisplayNameFor(model => model.HasChildren)
                                 </label>
                             </div>
                             <div class="form-group form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" asp-for="IsMenu" /> @Html.DisplayNameFor(model => model.IsMenu)
+                                    <input id="checkmenu" class="form-check-input" asp-for="IsMenu" /> @Html.DisplayNameFor(model => model.IsMenu)
                                 </label>
                             </div>
                         </div>
                     
-                    <div class="row">
+                    <div class="row text-white">
                         <div class="form-group offset-sm-1">
                             <label asp-for="DisplayOrder" class="control-label"></label>
                             <input asp-for="DisplayOrder" class="form-control" />
@@ -119,13 +116,7 @@
 <script src="~/notify.min.js"></script>
 <script type="text/javascript">
 
-    function checkedBoxx()
-    {
-        if ($("#ischecked" == true)) {
-            $("#ischecked" == false)
-        }
-    }
-
+    
     function EditStudentDetails(element) {
         $("input[name='Id']").val(element.dataset.id);
         $("input[name='IdMenu']").val(element.dataset.idmenu);
@@ -133,17 +124,40 @@
         $("input[name='Controller']").val(element.dataset.controller);
         $("input[name='Action']").val(element.dataset.action);
         $("input[name='Area']").val(element.dataset.area);
-        $("input[name='IdParent']").val(element.dataset.idParent);
         $("input[name='ParentId']").val(element.dataset.parentid);
-        $("input[name='HasChildren']").val(element.dataset.haschildren);
+        //$("input[name='IdParent']").val(element.dataset.idparent).trigger("change")//.change();
+        //$('#showselecteditem').change();
+        //  if ($(element.dataset.idparent).text() == 'Menu 1') {
+        //$("#showselecteditem").val($(this).data('val')).trigger('change')//.attr("selected", "selected")
+        // }
+
+        console.log(element.dataset.idparent)
+
+        //$("#showselecteditem").change(function () {
+        //    var val = $(this).val();
+        //    $("#text").val(val);
+        //})
+        // $("input[name='HasChildren']").prop('checked', function (i, value) { return !value }) this code is used to toggle checkbox
+        if (element.dataset.haschildren == "true")
+        {
+            $("#checkitout").prop('checked', true);
+        }
+        else
+        {
+            $("#checkitout").prop('checked', false);
+        }
         $("input[name='DisplayOrder']").val(element.dataset.displayorder);
         $("input[name='Icon']").val(element.dataset.icon);
         $("input[name='MenuText']").val(element.dataset.menutext);
         $("input[name='DataRoute']").val(element.dataset.dataroute);
-        $("input[name='IsMenu']").val(element.dataset.ismenu);
-
-
-        checkedBoxx();
+        if (element.dataset.ismenu == "false")
+        {
+            $("#checkmenu").prop('checked', false)
+        }
+        else
+        {
+            $("#checkmenu").prop('checked', true)
+        }
 
      }
 
@@ -228,7 +242,7 @@
                                 data-icon="${row.icon}"
                                 data-menuText="${row.menuText}"
                                 data-dataRoute="${row.dataRoute}"
-                                data-id_Application="${row.isMenu}"
+                                data-isMenu="${row.isMenu}"
                                 onclick="EditStudentDetails(this)">Edit</button>
 
                                 <button class=" btn btn-danger"
@@ -245,17 +259,12 @@
                                 data-icon="${row.icon}"
                                 data-menuText="${row.menuText}"
                                 data-dataRoute="${row.dataRoute}"
-                                data-id_Application="${row.isMenu}"
+                                data-isMenu="${row.isMenu}"
                                 onclick='DeleteStd(${row.id})'>Delete</button>`
                                 
                         }
 
                     return ''
-
-
-
-
-
 
                     }
                 },
